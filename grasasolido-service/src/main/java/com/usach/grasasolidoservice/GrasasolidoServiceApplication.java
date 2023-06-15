@@ -1,16 +1,15 @@
-package com.usach.proveedorservice;
+package com.usach.grasasolidoservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ProveedorServiceApplication {
+public class GrasasolidoServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProveedorServiceApplication.class, args);
+		SpringApplication.run(GrasasolidoServiceApplication.class, args);
 	}
 
 }
