@@ -23,6 +23,15 @@ public class RegistroController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping("/quincena/{fecha}")
+    public ResponseEntity<List<RegistroEntity>> getRegistroByQuincena(@PathVariable String fecha) {
+        List<RegistroEntity> data = registroService.getRegistroByQuincena(fecha);
+        if (data.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(data);
+    }
+
     @GetMapping("/kls_totales/{proveedor}/{fecha}")
     public double getKlsTotales(@PathVariable String proveedor, @PathVariable String fecha) {
         return registroService.getKlsTotales(proveedor, fecha);

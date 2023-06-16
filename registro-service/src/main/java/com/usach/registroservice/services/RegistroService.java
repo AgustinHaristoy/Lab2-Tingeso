@@ -20,9 +20,9 @@ public class RegistroService {
 
     public List<RegistroEntity> getAllregistro(){return registroRepository.findAll();}
 
-    public List<RegistroEntity> getRegistroByProveedor(String proveedor){
+    /*public List<RegistroEntity> getRegistroByProveedor(String proveedor){
         return registroRepository.findByProveedor(proveedor);
-    }
+    }*/
     public void guardarRegistro(RegistroEntity registro){ registroRepository.save(registro);}
 
     public void guardarAcopio(String proveedor, String fecha, String turno, Double kls_leche){
@@ -53,8 +53,9 @@ public class RegistroService {
         }
     }
 
-    public List<RegistroEntity> findByFecha_Month(String fecha, List<RegistroEntity> registros){
-        List<RegistroEntity> registrosMes = new ArrayList<RegistroEntity>();
+    public List<RegistroEntity> findByFecha_Month(String fecha){
+        List<RegistroEntity> registros = getAllregistro();
+        List<RegistroEntity> registrosMes = new ArrayList<>();
         for(RegistroEntity registro : registros){
             if(registro.getFecha().substring(0,4).equals(fecha.substring(0,4))
                     && registro.getFecha().substring(5,7).equals(fecha.substring(5,7))){
@@ -64,8 +65,8 @@ public class RegistroService {
         return registrosMes;
     }
 
-    public List<RegistroEntity> getRegistroByQuincena(String fecha, List<RegistroEntity> registros){
-        List<RegistroEntity> registroEntityList = findByFecha_Month(fecha, registros);
+    public List<RegistroEntity> getRegistroByQuincena(String fecha){
+        List<RegistroEntity> registroEntityList = findByFecha_Month(fecha);
         List<RegistroEntity> registroEntityList1 = new ArrayList<>();
         Integer quincena = findQuincenaByFecha(fecha);
         Integer quincena1;
@@ -80,8 +81,7 @@ public class RegistroService {
 
 
     public double getKlsTotales(String proveedor, String fecha){
-        List<RegistroEntity> registros = getAllregistro();
-        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha, registros);
+        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         double kls = 0;
         for (RegistroEntity registroEntity: registroEntityList) {
             if (registroEntity.getProveedor().equals(proveedor)){
@@ -92,8 +92,7 @@ public class RegistroService {
     }
 
     public Integer getDiasTotales(String proveedor, String fecha){
-        List<RegistroEntity> registros = getAllregistro();
-        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha, registros);
+        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         int dias = 0;
         boolean visto = false;
         String fecha1 = null;
@@ -117,8 +116,7 @@ public class RegistroService {
         return dias;
     }
     public Integer getBonificacion(String proveedor, String fecha){
-        List<RegistroEntity> registros = getAllregistro();
-        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha, registros);
+        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         int manana = 0;
         int tarde = 0;
         int mananaytarde = 0;
@@ -180,8 +178,7 @@ public class RegistroService {
     }
 
     public Double getGrasaByProveedor(String proveedor, String fecha){
-        List<RegistroEntity> registros = getAllregistro();
-        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha, registros);
+        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         Double grasa = 0.0;
         for (RegistroEntity registroEntity: registroEntityList) {
             if (registroEntity.getProveedor().equals(proveedor)){
@@ -192,8 +189,7 @@ public class RegistroService {
     }
 
     public Double getSolidoByProveedor(String proveedor, String fecha){
-        List<RegistroEntity> registros = getAllregistro();
-        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha, registros);
+        List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         double solido = 0;
         for (RegistroEntity registroEntity: registroEntityList) {
             if (registroEntity.getProveedor().equals(proveedor)){

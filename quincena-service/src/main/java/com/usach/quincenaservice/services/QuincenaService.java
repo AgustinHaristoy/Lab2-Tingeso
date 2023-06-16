@@ -86,6 +86,11 @@ public class QuincenaService {
         return registros;
     }
 
+    public List<RegistroModel> getRegistroByQuincena(String fecha){
+        List<RegistroModel> registros = restTemplate.getForObject("http://registro-service/registro/quincena/"+fecha, List.class);
+        return registros;
+    }
+
     public void crearQuincena(String fecha, String proveedor){
         List<QuincenaEntity> Quincenas = getAllQuincenas();
         logg.info("Total Quincenas " + Quincenas.size());
@@ -118,9 +123,9 @@ public class QuincenaService {
         while(registroEntityList.size() != 0){
             fecha = registroEntityList.get(0).getFecha();
             crearQuincena(fecha, proveedor);
-            List<RegistroEntity> registroQuincena = registroService.getRegistroByQuincena(fecha, registroEntityList);
+            List<RegistroModel> registroQuincena = getRegistroByQuincena(fecha);
             logg.info("Registros de la quincena " + registroQuincena.size());
-            for(RegistroEntity registro : registroQuincena){
+            for(RegistroModel registro : registroQuincena){
                 registroEntityList.remove(registro);
                 logg.info("Registros restantes " + registroEntityList.size());
             }

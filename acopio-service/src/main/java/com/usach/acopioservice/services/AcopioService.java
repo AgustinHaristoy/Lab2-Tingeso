@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -22,6 +25,9 @@ import java.util.List;
 public class AcopioService {
     @Autowired
     private AcopioRepository acopioRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     private final Logger logg = LoggerFactory.getLogger(AcopioService.class);
 
@@ -57,7 +63,13 @@ public class AcopioService {
         BufferedReader bf = null;
         List<AcopioEntity> acopioEntityList = getAllacopio();
         for (AcopioEntity acopioEntity: acopioEntityList) {
-            registroService.guardarAcopio(acopioEntity.getProveedor(), acopioEntity.getFecha(), acopioEntity.getTurno(), acopioEntity.getKls_leche());
+            String url = "http://registro/acopio";
+            MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
+            request.add("proveedor", acopioEntity.getProveedor());
+            request.add("fecha", acopioEntity.getFecha());
+            request.add("turno", acopioEntity.getTurno());
+            request.add("kls_leche", acopioEntity.getKls_leche());
+            restTemplate.postForObject(url, request, Void.class);
         }
         acopioRepository.deleteAll();
         try{
