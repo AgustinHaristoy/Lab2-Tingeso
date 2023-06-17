@@ -59,12 +59,17 @@ public class RegistroController {
 
 
     @PostMapping("/acopio")
-    public void guardarAcopio(String proveedor, String fecha, String turno, Double kls_leche){
+    public void guardarAcopio(@RequestParam("proveedor") String proveedor,
+                              @RequestParam("fecha") String fecha,
+                              @RequestParam("turno") String turno,
+                              @RequestParam("kls_leche") Double kls_leche){
         registroService.guardarAcopio(proveedor, fecha, turno, kls_leche);
     }
 
     @PostMapping("/grasasolido")
-    public void guardarGrasaSolido(String proveedor, Double grasa, Double solido){
+    public void guardarGrasaSolido(@RequestParam("proveedor") String proveedor,
+                                   @RequestParam("grasa") Double grasa,
+                                   @RequestParam("solido") Double solido){
         registroService.guardarGrasaSolido(proveedor, grasa, solido);
     }
 

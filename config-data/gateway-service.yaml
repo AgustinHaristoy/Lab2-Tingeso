@@ -44,3 +44,7 @@ spring:
           uri: lb://quincena-service
           predicates:
             - Path=/quincena/**
+        - id: calculator-service
+          uri: lb://calculator-service
+          predicates:
+            - Path=/calculator/**
