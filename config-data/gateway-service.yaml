@@ -7,7 +7,7 @@ eureka:
     service-url:
       default-zone: http://${EUREKA:localhost}:8761/eureka
   instance:
-    hostname: localhost
+    hostname: macbook-pro-de-agustin.local
 spring:
   cloud:
     gateway:
@@ -27,7 +27,7 @@ spring:
         - id: proveedor-service
           uri: lb://proveedor-service
           predicates:
-            - Path=/proveedor/**
+            - Path=/proveedores/**
         - id: acopio-service
           uri: lb://acopio-service
           predicates:
@@ -48,3 +48,7 @@ spring:
           uri: lb://calculator-service
           predicates:
             - Path=/calculator/**
+        - id: planillapagos-service
+          uri: lb://planillapagos-service
+          predicates:
+            - Path=/planillapagos/**

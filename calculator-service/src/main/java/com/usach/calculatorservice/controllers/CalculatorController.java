@@ -27,4 +27,6 @@ public class CalculatorController {
     public void generarPagos(@PathVariable String proveedor) {
         calculatorService.generarPagos(proveedor);
     }
+
+
 }

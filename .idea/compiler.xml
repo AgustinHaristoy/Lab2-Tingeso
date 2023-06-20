@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,6 +11,7 @@
         <module name="eureka-service" />
         <module name="config-service" />
         <module name="calculator-service" />
+        <module name="planillapagos-service" />
         <module name="gateway-service" />
         <module name="quincena-service" />
         <module name="proveedor-service" />
@@ -26,6 +28,7 @@
       <module name="eureka-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="grasasolido-service" options="-parameters" />
+      <module name="planillapagos-service" options="-parameters" />
       <module name="proveedor-service" options="-parameters" />
       <module name="quincena-service" options="-parameters" />
       <module name="registro-service" options="-parameters" />
