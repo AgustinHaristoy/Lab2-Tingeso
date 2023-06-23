@@ -64,7 +64,7 @@ public class GrasaSolidoService {
         BufferedReader bf = null;
         List<GrasaSolidoEntity> grasaSolidoEntityList = getAllgrasasolido();
         for(GrasaSolidoEntity grasaSolidoEntity: grasaSolidoEntityList) {
-            String url = "http://registro/grasasolido";
+            String url = "http://registro-service/registro/grasasolido";
             MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
             request.add("proveedor", grasaSolidoEntity.getProveedor());
             request.add("grasa", grasaSolidoEntity.getGrasa());

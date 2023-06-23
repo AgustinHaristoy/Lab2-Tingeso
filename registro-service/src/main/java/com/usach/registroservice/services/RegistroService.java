@@ -31,6 +31,13 @@ public class RegistroService {
             for (RegistroEntity registro : registros) {
                 if (registro.getProveedor().equals(proveedor) && registro.getFecha().equals(fecha) && registro.getTurno().equals(turno)) {
                     return;
+                }else{
+                    RegistroEntity newRegistro = new RegistroEntity();
+                    newRegistro.setProveedor(proveedor);
+                    newRegistro.setFecha(fecha);
+                    newRegistro.setTurno(turno);
+                    newRegistro.setKls_leche(kls_leche);
+                    guardarRegistro(newRegistro);
                 }
             }
         }

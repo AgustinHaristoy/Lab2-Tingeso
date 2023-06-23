@@ -63,7 +63,7 @@ public class AcopioService {
         BufferedReader bf = null;
         List<AcopioEntity> acopioEntityList = getAllacopio();
         for (AcopioEntity acopioEntity: acopioEntityList) {
-            String url = "http://registro/acopio";
+            String url = "http://registro-service/registro/acopio";
             MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
             request.add("proveedor", acopioEntity.getProveedor());
             request.add("fecha", acopioEntity.getFecha());

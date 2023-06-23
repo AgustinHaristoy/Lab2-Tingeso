@@ -27,7 +27,7 @@ public class AcopioController {
         return ResponseEntity.ok(data);
     }
     @PostMapping
-    public void guardarData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws FileNotFoundException, ParseException {
+    public void guardarData(@RequestParam("file") MultipartFile file) {
         acopioService.guardar(file);
         acopioService.leerCsv("Acopio.csv");
     }
