@@ -77,6 +77,4 @@ public class RegistroController {
     public void deleteAll(){
         registroService.eliminarRegistro();
     }
-
-
 }

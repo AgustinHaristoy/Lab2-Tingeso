@@ -10,6 +10,9 @@ import lombok.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,18 +37,30 @@ public class CalculatorService {
 
     public ArrayList<CalculatorEntity> getAllcalculator(){return (ArrayList<CalculatorEntity>) calculatorRepository.findAll();}
 
-    public List<AcopioModel> getAllacopio(){
-        List<AcopioModel> acopio = restTemplate.getForObject("http://acopio-service/acopio", List.class);
+    public List<AcopioModel> getAllacopio() {
+        ResponseEntity<List<AcopioModel>> response = restTemplate.exchange(
+                "http://acopio-service/acopio",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<AcopioModel>>() {}
+        );
+        List<AcopioModel> acopio = response.getBody();
         return acopio;
     }
     
     public List<GrasaSolidoModel> getAllgrasasolido(){
-        List<GrasaSolidoModel> grasasolido = restTemplate.getForObject("http://grasasolido-service/grasasolido", List.class);
+        ResponseEntity<List<GrasaSolidoModel>> response = restTemplate.exchange(
+                "http://grasasolido-service/grasasolido",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<GrasaSolidoModel>>() {}
+        );
+        List<GrasaSolidoModel> grasasolido = response.getBody();
         return grasasolido;
     }
 
     public void guardarAcopio(String proveedor, String fecha, String turno, Double kls_leche){
-        String url = "http://registro/acopio";
+        String url = "http://registro-service/registro/acopio";
         MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
         request.add("proveedor", proveedor);
         request.add("fecha", fecha);
@@ -55,7 +70,7 @@ public class CalculatorService {
     }
 
     public void guardarGrasaSolido(String proveedor, Double grasa, Double solido){
-        String url = "http://registro/grasasolido";
+        String url = "http://registro-service/registro/grasasolido";
         MultiValueMap<String, Object> request = new LinkedMultiValueMap<>();
         request.add("proveedor", proveedor);
         request.add("grasa", grasa);
@@ -97,7 +112,7 @@ public class CalculatorService {
     }
 
     public ProveedorModel getProveedorByCodigo(String codigo){
-        ProveedorModel proveedor = restTemplate.getForObject("http://proveedor-service/proveedor/"+ codigo, ProveedorModel.class);
+        ProveedorModel proveedor = restTemplate.getForObject("http://proveedor-service/proveedores/"+ codigo, ProveedorModel.class);
         return proveedor;
     }
     @Generated

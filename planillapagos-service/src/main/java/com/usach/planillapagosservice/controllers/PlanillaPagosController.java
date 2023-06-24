@@ -23,8 +23,8 @@ public class PlanillaPagosController {
         return ResponseEntity.ok(planillas);
     }
 
-    @PostMapping("/{proveedor}")
-    public void crearPlanilla(@PathVariable String proveedor){
+    @PostMapping
+    public void crearPlanilla(@RequestParam("proveedor") String proveedor){
         planillaPagosService.crearPlanilla(proveedor);
     }
 

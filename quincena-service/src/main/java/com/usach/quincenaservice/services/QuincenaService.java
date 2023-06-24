@@ -4,9 +4,15 @@ import com.usach.quincenaservice.entities.QuincenaEntity;
 import com.usach.quincenaservice.models.RegistroModel;
 import com.usach.quincenaservice.repositories.QuincenaRepository;
 import lombok.Generated;
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -81,13 +87,39 @@ public class QuincenaService {
         }
     }
 
-    public List<RegistroModel> getAllregistro(){
+    /*public List<RegistroModel> getAllregistro(){
         List<RegistroModel> registros = restTemplate.getForObject("http://registro-service/registro", List.class);
+        return registros;
+    }*/
+
+    public List<RegistroModel> getAllregistro() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<RegistroModel>> response = restTemplate.exchange(
+                "http://registro-service/registro",
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<List<RegistroModel>>() {}
+        );
+        List<RegistroModel> registros = response.getBody();
         return registros;
     }
 
-    public List<RegistroModel> getRegistroByQuincena(String fecha){
+    /*public List<RegistroModel> getRegistroByQuincena(String fecha){
         List<RegistroModel> registros = restTemplate.getForObject("http://registro-service/registro/quincena/"+fecha, List.class);
+        return registros;
+    }*/
+
+    public List<RegistroModel> getRegistroByQuincena(String fecha) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<RegistroModel>> response = restTemplate.exchange(
+                "http://registro-service/registro/quincena/" + fecha,
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<List<RegistroModel>>() {}
+        );
+        List<RegistroModel> registros = response.getBody();
         return registros;
     }
 
@@ -111,13 +143,16 @@ public class QuincenaService {
 
     public void crearQuincenasByProveedor(String proveedor) {
         List<RegistroModel> registros = getAllregistro();
-        logg.info("Total Registros" + registros.size());
+        logg.info("Total Registros " + registros.size());
         List<RegistroModel> registroEntityList = new ArrayList<>();
         String fecha;
-        for(RegistroModel registro : registros){
-            if(registro.getProveedor().equals(proveedor)){
-                registroEntityList.add(registro);
+        int i = 0;
+        while(i < registros.size()){
+            if(registros.get(i).getProveedor().equals(proveedor)){
+                registroEntityList.add(registros.get(i));
+                i += 1;
             }
+            i += 1;
         }
         logg.info("Total Registros del proveedor" + registroEntityList.size());
         while(registroEntityList.size() != 0){

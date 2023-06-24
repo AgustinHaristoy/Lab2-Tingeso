@@ -6,6 +6,9 @@ import com.usach.planillapagosservice.models.QuincenaModel;
 import com.usach.planillapagosservice.repositories.PlanillaPagosRepository;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,11 +34,17 @@ public class PlanillaPagosService {
     }
 
     public void generarPagos(String proveedor){
-        restTemplate.postForObject("http://calculator-service/"+ proveedor, null, Void.class);
+        restTemplate.postForObject("http://calculator-service/calculator/"+ proveedor, null, Void.class);
     }
 
-    public List<CalculatorModel> getAllcalculator(){
-        List<CalculatorModel> calculators = restTemplate.getForObject("http://calculator-service/", List.class);
+    public List<CalculatorModel> getAllcalculator() {
+        ResponseEntity<List<CalculatorModel>> response = restTemplate.exchange(
+                "http://calculator-service/calculator",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<CalculatorModel>>() {}
+        );
+        List<CalculatorModel> calculators = response.getBody();
         return calculators;
     }
 
