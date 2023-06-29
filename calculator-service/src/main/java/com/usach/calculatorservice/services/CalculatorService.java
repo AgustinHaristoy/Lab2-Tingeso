@@ -86,6 +86,7 @@ public class CalculatorService {
         }
         for(GrasaSolidoModel grasaSolidoModel : grasasolido) {
             guardarGrasaSolido(grasaSolidoModel.getProveedor(), grasaSolidoModel.getGrasa(), grasaSolidoModel.getSolido());
+            logg.info("Grasa: " + grasaSolidoModel.getGrasa() + " Solido: " + grasaSolidoModel.getSolido());
         }
     }
 
@@ -103,11 +104,11 @@ public class CalculatorService {
         return anterior;
     }
 
-    public void generarPagos(String provedor){
+    public void generarPagos(String proveedor){
         guardarUltimoRegistro();
-        crearQuincenasByProveedor(provedor);
-        QuincenaModel actual = encontrarActual(provedor);
-        QuincenaModel anterior = encontrarAnterior(provedor);
+        crearQuincenasByProveedor(proveedor);
+        QuincenaModel actual = encontrarActual(proveedor);
+        QuincenaModel anterior = encontrarAnterior(proveedor);
         hacerCalculos(actual, anterior);
     }
 
@@ -279,21 +280,24 @@ public class CalculatorService {
         if(variacion_leche <= 0.0 && variacion_leche >= -8.0) return pagoleche * 0.0;
         else if(variacion_leche <= -9.0 && variacion_leche >= -25.0) return pagoleche * 0.07;
         else if(variacion_leche <= -26.0 && variacion_leche >= -45.0) return pagoleche * 0.15;
-        else return pagoleche * 0.30;
+        else if(variacion_leche <= -46.0) return pagoleche * 0.30;
+        else return pagoleche * 0.0;
     }
 
     public Double obtenerDescuento_grasa(Double variacion_grasa, Double pagoleche){
         if(variacion_grasa <= 0.0 && variacion_grasa >= -15.0) return pagoleche * 0.0;
         else if(variacion_grasa <= -16.0 && variacion_grasa >= -25.0) return pagoleche * 0.12;
         else if(variacion_grasa <= -26.0 && variacion_grasa >= -40.0) return pagoleche * 0.2;
-        else return pagoleche * 0.3;
+        else if(variacion_grasa <= -41.0) return pagoleche * 0.3;
+        else return pagoleche * 0.0;
     }
 
     public Double obtenerDescuento_solido(Double variacion_solido, Double pagoleche){
         if(variacion_solido <= 0.0 && variacion_solido >= -6.0) return pagoleche * 0.0;
         else if(variacion_solido <= -7.0 && variacion_solido >= -12.0) return pagoleche * 0.18;
         else if(variacion_solido <= -13.0 && variacion_solido >= -35.0) return pagoleche * 0.27;
-        else return pagoleche * 0.45;
+        else if(variacion_solido <= -36.0) return pagoleche * 0.45;
+        else return pagoleche * 0.0;
     }
 
     public Double obtenerPagoTotal(Double pagoacopio, Double descuento_leche, Double descuento_grasa, Double descuento_solido){

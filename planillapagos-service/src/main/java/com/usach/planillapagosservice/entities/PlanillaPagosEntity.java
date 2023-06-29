@@ -17,6 +17,7 @@ public class PlanillaPagosEntity {
     private Long id;
     private String quincena;
     private String proveedor;
+    private String nombre;
     private Double total_kls_leche;
     private Integer dias;
     private Double promedio_kls_leche;
@@ -58,6 +59,14 @@ public class PlanillaPagosEntity {
 
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Double getTotal_kls_leche() {

@@ -2,6 +2,7 @@ package com.usach.planillapagosservice.services;
 
 import com.usach.planillapagosservice.entities.PlanillaPagosEntity;
 import com.usach.planillapagosservice.models.CalculatorModel;
+import com.usach.planillapagosservice.models.ProveedorModel;
 import com.usach.planillapagosservice.models.QuincenaModel;
 import com.usach.planillapagosservice.repositories.PlanillaPagosRepository;
 import lombok.Generated;
@@ -52,10 +53,17 @@ public class PlanillaPagosService {
         QuincenaModel actual = restTemplate.getForObject("http://quincena-service/quincena/actual/"+ proveedor, QuincenaModel.class);
         return actual;
     }
+
+    public ProveedorModel getProveedorByCodigo(String codigo){
+        ProveedorModel proveedor = restTemplate.getForObject("http://proveedor-service/proveedores/"+ codigo, ProveedorModel.class);
+        return proveedor;
+    }
     @Generated
     public void crearPlanilla(String proveedor){
         PlanillaPagosEntity planillaPagosEntity = new PlanillaPagosEntity();
+        ProveedorModel proveedorN = getProveedorByCodigo(proveedor);
         planillaPagosEntity.setProveedor(proveedor);
+        planillaPagosEntity.setNombre(proveedorN.getNombre());
         generarPagos(proveedor);
         List<CalculatorModel> calculatorModels = getAllcalculator();
         CalculatorModel calculatorEntity = calculatorModels.get(calculatorModels.size()-1);

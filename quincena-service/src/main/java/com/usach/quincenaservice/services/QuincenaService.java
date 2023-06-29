@@ -154,7 +154,7 @@ public class QuincenaService {
             }
             i += 1;
         }
-        logg.info("Total Registros del proveedor" + registroEntityList.size());
+        logg.info("Total Registros del proveedor " + registroEntityList.size());
         while(registroEntityList.size() != 0){
             fecha = registroEntityList.get(0).getFecha();
             crearQuincena(fecha, proveedor);

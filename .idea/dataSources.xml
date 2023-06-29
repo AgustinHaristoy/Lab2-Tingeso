@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="acopio@localhost" uuid="86c168e5-dade-463d-bb94-dbf034ca7b61">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/acopio</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="grasasolido@localhost" uuid="1edb1aac-6215-4ba5-984a-947854d7cf2e">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/grasasolido</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="proveedor@localhost" uuid="d445bc6f-5bd3-4ed0-b428-e783c9d8eaf9">
+    <data-source source="LOCAL" name="proveedor@localhost" uuid="7adae46b-b10c-49e3-b0f4-058794319c1a">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/proveedor</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="quincena@localhost" uuid="0608cb47-d8a1-4a3e-95a2-2d2d0c8d774c">
+    <data-source source="LOCAL" name="acopio@localhost" uuid="4b981b8e-341b-4ab0-9b55-4ba55bc2f5f3">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/quincena</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/acopio</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="registro@localhost" uuid="ee86f087-887a-46c8-bbc0-4bef7abd4918">
+    <data-source source="LOCAL" name="grasasolido@localhost" uuid="20316777-0c5c-450c-a6d0-8f150c94f5d1">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/grasasolido</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="registro@localhost" uuid="83026c60-71cd-44a0-93ea-1153470c0c29">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/registro</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="calculator@localhost" uuid="25e9718c-d861-4144-894a-7d748fbbbcd1">
+    <data-source source="LOCAL" name="quincena@localhost" uuid="a3de2e21-80df-4899-be4f-e284684f40b1">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/quincena</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="calculator@localhost" uuid="03b6cd10-1e70-4325-9a4c-f2fc53196908">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/calculator</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="planillapagos@localhost" uuid="85a9128d-d7de-411f-95a3-23d31fcd6546">
+    <data-source source="LOCAL" name="planillapagos@localhost" uuid="43f17cd9-71f6-4d30-8749-81d210d5bc20">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

@@ -45,7 +45,7 @@ public class RegistroService {
     public void guardarGrasaSolido(String proveedor, Double grasa, Double solido){
         List<RegistroEntity> registros = getAllregistro();
         for(RegistroEntity registro : registros){
-            if(registro.getProveedor().equals(proveedor)){
+            if(registro.getProveedor().equals(proveedor) && registro.getGrasa() == null && registro.getSolido() == null){
                 registro.setGrasa(grasa);
                 registro.setSolido(solido);
                 guardarRegistro(registro);
@@ -72,7 +72,7 @@ public class RegistroService {
         Integer quincena1;
         for(RegistroEntity registroEntity: registroEntityList){
             quincena1 = findQuincenaByFecha(registroEntity.getFecha());
-            if (quincena.equals(quincena1)){
+            if (quincena.equals(quincena1) && registroEntity.getFecha().substring(0,4).equals(fecha.substring(0,4)) && registroEntity.getFecha().substring(5,7).equals(fecha.substring(5,7))){
                 registroEntityList1.add(registroEntity);
             }
         }
@@ -174,15 +174,18 @@ public class RegistroService {
                 bonificacion = 2;
             }
         }
+        logg.info("bonificacion: " + bonificacion);
         return bonificacion;
     }
 
     public Double getGrasaByProveedor(String proveedor, String fecha){
+        logg.info("fecha: " + fecha);
         List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
         Double grasa = 0.0;
         for (RegistroEntity registroEntity: registroEntityList) {
             if (registroEntity.getProveedor().equals(proveedor)){
                 grasa = registroEntity.getGrasa();
+                logg.info("grasa: " + grasa);
             }
         }
         return grasa;
@@ -190,7 +193,7 @@ public class RegistroService {
 
     public Double getSolidoByProveedor(String proveedor, String fecha){
         List<RegistroEntity> registroEntityList = getRegistroByQuincena(fecha);
-        double solido = 0;
+        double solido = 0.0;
         for (RegistroEntity registroEntity: registroEntityList) {
             if (registroEntity.getProveedor().equals(proveedor)){
                 solido = registroEntity.getSolido();
