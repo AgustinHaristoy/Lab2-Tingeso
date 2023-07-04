@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grasasolido-deployment
+  labels:
+    app: grasasolido-deployment
+spec:
+  selector:
+    matchLabels:
+      app: grasasolido-deployment
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: grasasolido-deployment
+    spec:
+      containers:
+        - name: grasasolido
+          image: agustinharistoy/grasasolido_docker
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:8081
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka-service:8761
+            - name: eureka.instance.preferIpAddress
+              value: "true"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: grasasolido-conf
+                  key: host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: grasasolido-conf
+                  key: name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grasasolido-service
+  labels:
+    app: grasasolido-service
+spec:
+  selector:
+    app: grasasolido-deployment
+  ports:
+    - protocol: TCP
+      port: 8084
+      targetPort: 8084
+  type: LoadBalancer

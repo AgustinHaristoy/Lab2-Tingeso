@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acopio-deployment
+  labels:
+    app: acopio-deployment
+spec:
+  selector:
+    matchLabels:
+      app: acopio-deployment
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: acopio-deployment
+    spec:
+      containers:
+        - name: acopio
+          image: agustinharistoy/acopio_docker
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:8081
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka-service:8761
+            - name: eureka.instance.preferIpAddress
+              value: "true"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: acopio-conf
+                  key: host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: acopio-conf
+                  key: name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acopio-service
+  labels:
+    app: acopio-service
+spec:
+  selector:
+    app: acopio-deployment
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+  type: LoadBalancer

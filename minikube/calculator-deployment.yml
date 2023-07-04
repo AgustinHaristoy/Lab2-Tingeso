@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator-deployment
+  labels:
+    app: calculator-deployment
+spec:
+  selector:
+    matchLabels:
+      app: calculator-deployment
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: calculator-deployment
+    spec:
+      containers:
+        - name: calculator
+          image: agustinharistoy/calculator_docker
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:8081
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka-service:8761
+            - name: eureka.instance.preferIpAddress
+              value: "true"
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: calculator-conf
+                  key: host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: calculator-conf
+                  key: name
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: postgres_password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calculator-service
+  labels:
+    app: calculator-service
+spec:
+  selector:
+    app: calculator-deployment
+  ports:
+    - protocol: TCP
+      port: 8087
+      targetPort: 8087
+  type: LoadBalancer

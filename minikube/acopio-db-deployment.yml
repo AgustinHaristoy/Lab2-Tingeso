@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acopio-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acopio-db
+  template:
+    metadata:
+      labels:
+        app: acopio-db
+    spec:
+      containers:
+        - name: acopio-db
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: acopio_db
+            - name: POSTGRES_USER
+              value: username
+            - name: POSTGRES_PASSWORD
+              value: password
+
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: acopio-db-storage
+      volumes:
+        - name: acopio-db-storage
+          persistentVolumeClaim:
+            claimName: acopio-db-pvc

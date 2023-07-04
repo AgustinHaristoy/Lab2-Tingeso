@@ -10,7 +10,7 @@ spring:
       uri: http://localhost:8081/
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/planillapagos?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:postgresql://localhost:5432}/planillapagos?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
     username: postgres
     password: vdcv1408
   jpa:
