@@ -39,13 +39,13 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: postgres_user
+                  name: mysql-root-credentials
+                  key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-credentials
-                  key: postgres_password
+                  name: mysql-root-credentials
+                  key: password
 
 ---
 apiVersion: v1

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: planillapagos-conf
+data:
+  host: mysql
+  name: planillapagosdb

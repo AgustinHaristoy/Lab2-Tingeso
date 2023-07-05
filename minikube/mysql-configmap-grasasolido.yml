@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grasasolido-conf
+data:
+  host: mysql
+  name: grsasolidodb
