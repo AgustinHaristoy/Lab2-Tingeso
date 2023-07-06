@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: proveedor
-          image: marcelovargaspavez/proveedor
+          image: agustinharistoy/proveedor_docker
           ports:
             - containerPort: 8081
           env:
@@ -29,12 +29,12 @@ spec:
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: proveedor
+                  name: proveedor-conf
                   key: host
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: proveedor
+                  name: proveedor-conf
                   key: name
             - name: DB_USERNAME
               valueFrom:

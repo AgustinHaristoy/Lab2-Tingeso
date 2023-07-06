@@ -4,4 +4,4 @@ metadata:
   name: grasasolido-conf
 data:
   host: mysql
-  name: grsasolidodb
+  name: grasasolidodb
